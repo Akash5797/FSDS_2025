@@ -1,0 +1,309 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| attendance_db      |
+| information_schema |
+| learnlink          |
+| mysql              |
+| newschema          |
+| nit                |
+| performance_schema |
+| sakila             |
+| shop               |
+| sys                |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> use shop;
+Database changed
+mysql> select * from customers;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  3 | Ali      |   23 | HYD     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  3 | Ali      |   23 | HYD     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where salary > 5000;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers where salary = 2000;
++----+-------+------+---------+---------+
+| Id | Name  | Age  | Address | Salary  |
++----+-------+------+---------+---------+
+|  1 | Akash |   25 | MBA     | 2000.00 |
+|  3 | Ali   |   23 | HYD     | 2000.00 |
++----+-------+------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers where salary != 2000;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where salary <> 2000;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where salary >= 6500;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  3 | Ali      |   23 | HYD     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where age >= 25 and salary >= 6500;
++----+----------+------+---------+---------+
+| Id | Name     | Age  | Address | Salary  |
++----+----------+------+---------+---------+
+|  4 | Ashutosh |   25 | MH      | 6500.00 |
+|  5 | Ankit    |   27 | UP      | 8500.00 |
++----+----------+------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers where age >= 25 or salary >= 6500;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers where age is not null;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  3 | Ali      |   23 | HYD     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where name like 'An%';
++----+-------+------+---------+----------+
+| Id | Name  | Age  | Address | Salary   |
++----+-------+------+---------+----------+
+|  2 | Anmol |   24 | MP      |  1500.00 |
+|  5 | Ankit |   27 | UP      |  8500.00 |
+|  7 | Anand |   24 | LKO     | 10000.00 |
++----+-------+------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers where name like 'An';
+Empty set (0.00 sec)
+
+mysql> select * from customers where name like 'Ankit';
++----+-------+------+---------+---------+
+| Id | Name  | Age  | Address | Salary  |
++----+-------+------+---------+---------+
+|  5 | Ankit |   27 | UP      | 8500.00 |
++----+-------+------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers where name like 'A%';
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  3 | Ali      |   23 | HYD     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where age in (25, 27);
++----+----------+------+---------+---------+
+| Id | Name     | Age  | Address | Salary  |
++----+----------+------+---------+---------+
+|  1 | Akash    |   25 | MBA     | 2000.00 |
+|  4 | Ashutosh |   25 | MH      | 6500.00 |
+|  5 | Ankit    |   27 | UP      | 8500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers where age between 25 and 27;
++----+----------+------+---------+---------+
+| Id | Name     | Age  | Address | Salary  |
++----+----------+------+---------+---------+
+|  1 | Akash    |   25 | MBA     | 2000.00 |
+|  4 | Ashutosh |   25 | MH      | 6500.00 |
+|  5 | Ankit    |   27 | UP      | 8500.00 |
++----+----------+------+---------+---------+
+3 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| attendance_db      |
+| information_schema |
+| learnlink          |
+| mysql              |
+| newschema          |
+| nit                |
+| performance_schema |
+| sakila             |
+| shop               |
+| sys                |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> use shop;
+Database changed
+mysql> select * from customers;
++----+----------+------+---------+----------+
+| Id | Name     | Age  | Address | Salary   |
++----+----------+------+---------+----------+
+|  1 | Akash    |   25 | MBA     |  2000.00 |
+|  2 | Anmol    |   24 | MP      |  1500.00 |
+|  3 | Ali      |   23 | HYD     |  2000.00 |
+|  4 | Ashutosh |   25 | MH      |  6500.00 |
+|  5 | Ankit    |   27 | UP      |  8500.00 |
+|  6 | Atul     |   22 | UP      |  4500.00 |
+|  7 | Anand    |   24 | LKO     | 10000.00 |
++----+----------+------+---------+----------+
+7 rows in set (0.00 sec)
+
+--------------------------------------------------------------------------------
+1. show databases;
+
+➡ Lists all databases available in your MySQL server.
+
+2. use shop;
+
+➡ Selects the database shop so you can work inside it.
+
+3. select * from customers;
+
+➡ Displays all records and all columns from the customers table.
+
+4. select * from customers where salary > 5000;
+
+➡ Shows all customers whose salary is greater than 5000.
+
+5. select * from customers where salary = 2000;
+
+➡ Shows all customers whose salary is exactly 2000.
+
+6. select * from customers where salary != 2000;
+
+➡ Shows all customers whose salary is not equal to 2000. (!= is same as <> in MySQL).
+
+7. select * from customers where salary <> 2000;
+
+➡ Same as above: retrieves customers with salary not equal to 2000.
+
+8. select * from customers where salary >= 6500;
+
+➡ Shows all customers whose salary is greater than or equal to 6500.
+
+9. select * from customers where age >= 25 and salary >= 6500;
+
+➡ Shows customers whose age is 25 or more AND whose salary is 6500 or more (both conditions must be true).
+
+10. select * from customers where age >= 25 or salary >= 6500;
+
+➡ Shows customers whose age is 25 or more OR whose salary is 6500 or more (at least one condition must be true).
+
+11. select * from customers where age is not null;
+
+➡ Retrieves all customers where the Age field has a value (not missing/NULL).
+
+12. select * from customers where name like 'An%';
+
+➡ Finds customers whose names start with "An" (e.g., Anmol, Ankit, Anand).
+
+13. select * from customers where name like 'An';
+
+➡ Looks for customers whose name is exactly "An". (Empty result in your case).
+
+14. select * from customers where name like 'Ankit';
+
+➡ Finds customers whose name is exactly "Ankit".
+
+15. select * from customers where name like 'A%';
+
+➡ Finds customers whose names start with the letter A (Akash, Anmol, Ali, etc.).
+
+16. select * from customers where age in (25, 27);
+
+➡ Retrieves customers whose Age is either 25 or 27.
+
+17. select * from customers where age between 25 and 27;
+
+➡ Retrieves customers whose Age is between 25 and 27 (inclusive).
+----------------------------------------------------------------------------------------------------------------------------
