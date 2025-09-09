@@ -1,0 +1,332 @@
+mysql> create table Customers(
+    -> Id int Primary Key,
+    -> Name varchar(50),
+    -> Age int,
+    -> Address varchar(100),
+    -> Salary Decimal(10, 2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into Customers(Id, Name, Age, Address, Salary) values
+    -> (1, 'Akash', 24, 'Charkhari', 20000.00),
+    -> (2, 'Ankit', 23, 'Jhansi', 15000.00),
+    -> (3, 'Ajay', 25, 'Jhansi', 20000.00),
+    -> (4, 'Atul', 24, 'Mahoba', 65000.00),
+    -> (5, 'karan', 24, 'Gwalior', 85000.00),
+    -> (6, 'Anand', 24, 'Gonda', 45000.00),
+    -> (7, 'Shivanshu', 24, 'Banda', 10000.00);
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++---------------+
+| Tables_in_nit |
++---------------+
+| customers     |
+| employees     |
+| student       |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers;
++----+-----------+------+-----------+----------+
+| Id | Name      | Age  | Address   | Salary   |
++----+-----------+------+-----------+----------+
+|  1 | Akash     |   24 | Charkhari | 20000.00 |
+|  2 | Ankit     |   23 | Jhansi    | 15000.00 |
+|  3 | Ajay      |   25 | Jhansi    | 20000.00 |
+|  4 | Atul      |   24 | Mahoba    | 65000.00 |
+|  5 | karan     |   24 | Gwalior   | 85000.00 |
+|  6 | Anand     |   24 | Gonda     | 45000.00 |
+|  7 | Shivanshu |   24 | Banda     | 10000.00 |
++----+-----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Orders (
+    -> OID INT PRIMARY KEY,
+    -> DATE DATETIME,
+    -> CUSTOMER_ID INT,
+    -> AMOUNT DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO Orders (OID, DATE, CUSTOMER_ID, AMOUNT) VALUES
+    -> (102, '2009-10-08 00:00:00', 3, 3000),
+    -> (100, '2009-10-08 00:00:00', 3, 1500),
+    -> (101, '2009-11-20 00:00:00', 2, 1560),
+    -> (103, '2008-05-20 00:00:00', 4, 2060);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++---------------+
+| Tables_in_nit |
++---------------+
+| customers     |
+| employees     |
+| orders        |
+| student       |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from orders;
++-----+---------------------+-------------+---------+
+| OID | DATE                | CUSTOMER_ID | AMOUNT  |
++-----+---------------------+-------------+---------+
+| 100 | 2009-10-08 00:00:00 |           3 | 1500.00 |
+| 101 | 2009-11-20 00:00:00 |           2 | 1560.00 |
+| 102 | 2009-10-08 00:00:00 |           3 | 3000.00 |
+| 103 | 2008-05-20 00:00:00 |           4 | 2060.00 |
++-----+---------------------+-------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select id, name, age, amount from customers, orders where customers.id = orders.customer_id;
++----+-------+------+---------+
+| id | name  | age  | amount  |
++----+-------+------+---------+
+|  3 | Ajay  |   25 | 1500.00 |
+|  2 | Ankit |   23 | 1560.00 |
+|  3 | Ajay  |   25 | 3000.00 |
+|  4 | Atul  |   24 | 2060.00 |
++----+-------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select id, name, amount, date from customers inner join orders on customers.id = orders.customer_id;
++----+-------+---------+---------------------+
+| id | name  | amount  | date                |
++----+-------+---------+---------------------+
+|  3 | Ajay  | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | Ankit | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | Ajay  | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | Atul  | 2060.00 | 2008-05-20 00:00:00 |
++----+-------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select id, name, amount, date from customers left join orders on customers.id = orders.customer_id;
++----+-----------+---------+---------------------+
+| id | name      | amount  | date                |
++----+-----------+---------+---------------------+
+|  1 | Akash     |    NULL | NULL                |
+|  2 | Ankit     | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | Ajay      | 3000.00 | 2009-10-08 00:00:00 |
+|  3 | Ajay      | 1500.00 | 2009-10-08 00:00:00 |
+|  4 | Atul      | 2060.00 | 2008-05-20 00:00:00 |
+|  5 | karan     |    NULL | NULL                |
+|  6 | Anand     |    NULL | NULL                |
+|  7 | Shivanshu |    NULL | NULL                |
++----+-----------+---------+---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select id, name, amount, date from customers right join orders on customers.id = orders.customer_id;
++------+-------+---------+---------------------+
+| id   | name  | amount  | date                |
++------+-------+---------+---------------------+
+|    3 | Ajay  | 1500.00 | 2009-10-08 00:00:00 |
+|    2 | Ankit | 1560.00 | 2009-11-20 00:00:00 |
+|    3 | Ajay  | 3000.00 | 2009-10-08 00:00:00 |
+|    4 | Atul  | 2060.00 | 2008-05-20 00:00:00 |
++------+-------+---------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_nit |
++---------------+
+| customers     |
+| employees     |
+| orders        |
+| student       |
++---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers;
++----+-----------+------+-----------+----------+
+| Id | Name      | Age  | Address   | Salary   |
++----+-----------+------+-----------+----------+
+|  1 | Akash     |   24 | Charkhari | 20000.00 |
+|  2 | Ankit     |   23 | Jhansi    | 15000.00 |
+|  3 | Ajay      |   25 | Jhansi    | 20000.00 |
+|  4 | Atul      |   24 | Mahoba    | 65000.00 |
+|  5 | karan     |   24 | Gwalior   | 85000.00 |
+|  6 | Anand     |   24 | Gonda     | 45000.00 |
+|  7 | Shivanshu |   24 | Banda     | 10000.00 |
++----+-----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select id, name, amount, date from customers left join orders on customers.id = orders.customer_id
+    -> Union All
+    -> select id, name, amount, date from customers right join orders on customers.id = orders.customer_id;
++------+-----------+---------+---------------------+
+| id   | name      | amount  | date                |
++------+-----------+---------+---------------------+
+|    1 | Akash     |    NULL | NULL                |
+|    2 | Ankit     | 1560.00 | 2009-11-20 00:00:00 |
+|    3 | Ajay      | 3000.00 | 2009-10-08 00:00:00 |
+|    3 | Ajay      | 1500.00 | 2009-10-08 00:00:00 |
+|    4 | Atul      | 2060.00 | 2008-05-20 00:00:00 |
+|    5 | karan     |    NULL | NULL                |
+|    6 | Anand     |    NULL | NULL                |
+|    7 | Shivanshu |    NULL | NULL                |
+|    3 | Ajay      | 1500.00 | 2009-10-08 00:00:00 |
+|    2 | Ankit     | 1560.00 | 2009-11-20 00:00:00 |
+|    3 | Ajay      | 3000.00 | 2009-10-08 00:00:00 |
+|    4 | Atul      | 2060.00 | 2008-05-20 00:00:00 |
++------+-----------+---------+---------------------+
+12 rows in set (0.00 sec)
+
+mysql> # if your database does not support full join like MySQL does not support full join, then you can use Union All clouse to combile two Joins
+mysql> # In SQL, a clause is a part of a query that performs a specific task.
+mysql> select * from customers;
++----+-----------+------+-----------+----------+
+| Id | Name      | Age  | Address   | Salary   |
++----+-----------+------+-----------+----------+
+|  1 | Akash     |   24 | Charkhari | 20000.00 |
+|  2 | Ankit     |   23 | Jhansi    | 15000.00 |
+|  3 | Ajay      |   25 | Jhansi    | 20000.00 |
+|  4 | Atul      |   24 | Mahoba    | 65000.00 |
+|  5 | karan     |   24 | Gwalior   | 85000.00 |
+|  6 | Anand     |   24 | Gonda     | 45000.00 |
+|  7 | Shivanshu |   24 | Banda     | 10000.00 |
++----+-----------+------+-----------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select a.id, b.name, a.salary from customers a, customers b, where a.salary < b.salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where a.salary < b.salary' at line 1
+mysql> select a.id, b.name, a.salary from customers a, customers b where a.salary < b.salary;
++----+-------+----------+
+| id | name  | salary   |
++----+-------+----------+
+|  7 | Akash | 10000.00 |
+|  2 | Akash | 15000.00 |
+|  7 | Ankit | 10000.00 |
+|  7 | Ajay  | 10000.00 |
+|  2 | Ajay  | 15000.00 |
+|  7 | Atul  | 10000.00 |
+|  6 | Atul  | 45000.00 |
+|  3 | Atul  | 20000.00 |
+|  2 | Atul  | 15000.00 |
+|  1 | Atul  | 20000.00 |
+|  7 | karan | 10000.00 |
+|  6 | karan | 45000.00 |
+|  4 | karan | 65000.00 |
+|  3 | karan | 20000.00 |
+|  2 | karan | 15000.00 |
+|  1 | karan | 20000.00 |
+|  7 | Anand | 10000.00 |
+|  3 | Anand | 20000.00 |
+|  2 | Anand | 15000.00 |
+|  1 | Anand | 20000.00 |
++----+-------+----------+
+20 rows in set (0.01 sec)
+
+mysql> select id, name, amount, date from customers, orders;
++----+-----------+---------+---------------------+
+| id | name      | amount  | date                |
++----+-----------+---------+---------------------+
+|  1 | Akash     | 2060.00 | 2008-05-20 00:00:00 |
+|  1 | Akash     | 3000.00 | 2009-10-08 00:00:00 |
+|  1 | Akash     | 1560.00 | 2009-11-20 00:00:00 |
+|  1 | Akash     | 1500.00 | 2009-10-08 00:00:00 |
+|  2 | Ankit     | 2060.00 | 2008-05-20 00:00:00 |
+|  2 | Ankit     | 3000.00 | 2009-10-08 00:00:00 |
+|  2 | Ankit     | 1560.00 | 2009-11-20 00:00:00 |
+|  2 | Ankit     | 1500.00 | 2009-10-08 00:00:00 |
+|  3 | Ajay      | 2060.00 | 2008-05-20 00:00:00 |
+|  3 | Ajay      | 3000.00 | 2009-10-08 00:00:00 |
+|  3 | Ajay      | 1560.00 | 2009-11-20 00:00:00 |
+|  3 | Ajay      | 1500.00 | 2009-10-08 00:00:00 |
+|  4 | Atul      | 2060.00 | 2008-05-20 00:00:00 |
+|  4 | Atul      | 3000.00 | 2009-10-08 00:00:00 |
+|  4 | Atul      | 1560.00 | 2009-11-20 00:00:00 |
+|  4 | Atul      | 1500.00 | 2009-10-08 00:00:00 |
+|  5 | karan     | 2060.00 | 2008-05-20 00:00:00 |
+|  5 | karan     | 3000.00 | 2009-10-08 00:00:00 |
+|  5 | karan     | 1560.00 | 2009-11-20 00:00:00 |
+|  5 | karan     | 1500.00 | 2009-10-08 00:00:00 |
+|  6 | Anand     | 2060.00 | 2008-05-20 00:00:00 |
+|  6 | Anand     | 3000.00 | 2009-10-08 00:00:00 |
+|  6 | Anand     | 1560.00 | 2009-11-20 00:00:00 |
+|  6 | Anand     | 1500.00 | 2009-10-08 00:00:00 |
+|  7 | Shivanshu | 2060.00 | 2008-05-20 00:00:00 |
+|  7 | Shivanshu | 3000.00 | 2009-10-08 00:00:00 |
+|  7 | Shivanshu | 1560.00 | 2009-11-20 00:00:00 |
+|  7 | Shivanshu | 1500.00 | 2009-10-08 00:00:00 |
++----+-----------+---------+---------------------+
+28 rows in set (0.00 sec)
+----------------------------------------------------------------------
+create table Customers(...)
+→ Creates a new table Customers with the following fields:
+Id (Primary Key, integer)
+Name (string, max 50 chars)
+Age (integer)
+Address (string, max 100 chars)
+Salary (decimal, up to 10 digits with 2 decimal places).
+
+insert into Customers(...) values (...)
+→ Inserts 7 sample records into the Customers table, containing details like customer id, name, age, address, and salary.
+show tables;
+
+→ Displays all tables present in the current database.
+Example output: customers, employees, student.
+
+select * from customers;
+→ Retrieves all columns and all rows from the Customers table.
+
+create table Orders(...)
+→ Creates a new table Orders with the following fields:
+
+OID (Primary Key, integer)
+DATE (datetime)
+CUSTOMER_ID (integer, refers to Customers.Id)
+AMOUNT (decimal, order amount).
+
+insert into Orders(...) values (...)
+→ Inserts 4 sample order records into the Orders table.
+
+show tables;
+→ Displays the updated list of tables including orders.
+
+select * from orders;
+→ Retrieves all rows and all columns from the Orders table.
+
+select id, name, age, amount from customers, orders where customers.id = orders.customer_id;
+→ Performs an implicit inner join between Customers and Orders based on id = customer_id, returning only the matched records.
+
+select id, name, amount, date from customers inner join orders on customers.id = orders.customer_id;
+→ Performs an explicit INNER JOIN, showing customers with their matching orders (only those who placed an order).
+
+select id, name, amount, date from customers left join orders on customers.id = orders.customer_id;
+→ Performs a LEFT JOIN, returning all customers.
+
+Customers with orders show their order details.
+
+Customers without orders show NULL for order fields.
+
+select id, name, amount, date from customers right join orders on customers.id = orders.customer_id;
+→ Performs a RIGHT JOIN, returning all orders.
+
+Orders with a matching customer show customer details.
+If an order has no matching customer, customer fields would be NULL.
+
+select id, name, amount, date from customers full join orders on customers.id = orders.customer_id;
+→ Attempted FULL OUTER JOIN.
+❌ MySQL does not support FULL JOIN, so this query fails with an error.
+
+select ... from customers left join orders ... UNION ALL select ... from customers right join orders ...;
+→ Simulates a FULL OUTER JOIN in MySQL using a combination of LEFT JOIN and RIGHT JOIN with UNION ALL.
+
+Returns all customers and all orders, including unmatched rows.
+
+select a.id, b.name, a.salary from customers a, customers b where a.salary < b.salary;
+→ Performs a self-join on Customers.
+
+Compares each customer’s salary with others.
+
+Shows which customers earn less than other customers.
+
+select id, name, amount, date from customers, orders;
+→ Performs a CROSS JOIN (Cartesian product) between Customers and Orders.
+
+Combines each row from Customers with each row from Orders.
+
+Returns 7 × 4 = 28 total rows.
